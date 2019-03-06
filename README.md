@@ -1,3 +1,9 @@
+
+Firebase Link: https://task-planner-app-4bf62.firebaseapp.com/
+
+App still under construction but can be downloaded on android devices.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
