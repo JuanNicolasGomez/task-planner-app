@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
+import PropTypes from 'prop-types';
 import {CardContent} from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 import {Link}  from "react-router-dom";
 import CardActionArea from '@material-ui/core/CardActionArea';
+import { withStyles } from '@material-ui/core/styles';
+import { red } from '@material-ui/core/colors';
+
 
 function update(){
     return(
@@ -11,41 +15,55 @@ function update(){
     );
 }
 
-class TaskCard extends React.Component{
+const styles = {
+    card: {
+      minWidth: 275,
+      color: red,
+    },
+    bullet: {
+      display: 'inline-block',
+      margin: '0 2px',
+      transform: 'scale(0.8)',
+    },
+    title: {
+      fontSize: 14,
+    },
+    pos: {
+      marginBottom: 12,
+    },
+  };
 
-    constructor(props){
-        super(props);
-    }
+  
+function TaskCard (props){
 
-
-    render() {
-
-
-        return(
-          <div className="TaskCard">
-              <Card>
-                  <CardActionArea  component={Link} to={{pathname: '/updatetask', state:{
-                          description : this.props.description,
-                          status : this.props.status,
-                          responsible : this.props.responsible,
-                          dueDate : this.props.dueDate
-                      }}}>
-                      <CardContent>
-                          <Typography variant="h5">
-                              {this.props.description}
-                          </Typography>
-                          <Typography color="textSecondary">
-                              {this.props.status}-DueDate:{this.props.dueDate}
-                          </Typography>
-                          <Typography color="textSecondary">
-                              Responsible: {this.props.responsible}
-                          </Typography>
-                      </CardContent>
-                  </CardActionArea>
-              </Card>
-          </div>
-        );
-    }
+    const { classes } = props;
+    return(
+    <div className="TaskCard">
+        <Card className= {classes.card}>
+            <CardActionArea  component={Link} to={{pathname: '/updatetask', state:{
+                    description : props.description,
+                    status : props.state,
+                    responsible : props.responsible,
+                    dueDate : props.date
+                }}}>
+                <CardContent>
+                    <Typography variant="h5">
+                        {props.description}
+                    </Typography>
+                    <Typography color="textSecondary">
+                        {props.state}-DueDate:{props.date}
+                    </Typography>
+                    <Typography color="textSecondary">
+                        Responsible: {props.responsible}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    </div>
+    );
+    
 }
 
-export default TaskCard;
+
+
+export default withStyles(styles)(TaskCard);

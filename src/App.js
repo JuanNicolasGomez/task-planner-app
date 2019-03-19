@@ -18,13 +18,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("EEHHHH");
     fetch('http://localhost:8080/taskslist')
         .then(
           response => response.json()
          )
         .then(data => {
-            console.log("EEHHHH2");
             
             let tasksList = [];
             
@@ -34,7 +32,6 @@ class App extends Component {
 
             });
             this.setState({tasksList: tasksList});
-            console.log("EEHHHH3");
         });
   }
   render() {
