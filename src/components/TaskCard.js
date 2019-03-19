@@ -18,7 +18,9 @@ function update(){
 const styles = {
     card: {
       minWidth: 275,
-      color: red,
+      marginBottom: 25,
+      
+
     },
     bullet: {
       display: 'inline-block',
@@ -31,6 +33,7 @@ const styles = {
     pos: {
       marginBottom: 12,
     },
+    
   };
 
   
@@ -38,8 +41,8 @@ function TaskCard (props){
 
     const { classes } = props;
     return(
-    <div className="TaskCard">
-        <Card className= {classes.card}>
+    <div style= {styles.card}>
+        <Card >
             <CardActionArea  component={Link} to={{pathname: '/updatetask', state:{
                     description : props.description,
                     status : props.state,
@@ -51,7 +54,10 @@ function TaskCard (props){
                         {props.description}
                     </Typography>
                     <Typography color="textSecondary">
-                        {props.state}-DueDate:{props.date}
+                        {props.state}State:{props.status}
+                    </Typography>
+                    <Typography color="textSecondary">
+                        {props.state}Due Date:{props.date}
                     </Typography>
                     <Typography color="textSecondary">
                         Responsible: {props.responsible}

@@ -1,51 +1,36 @@
 import React, { Component } from 'react';
 
 import './App.css';
-import PersistentDrawerLeft from './components/Navbar.js'
-import SimpleTooltips from './components/AddTooltip.js'
-import TextFields from './components/TasksView.js'
+import PersistentDrawerLeft from './components/Navbar.js';
+import SimpleTooltips from './components/AddTooltip.js';
+import TextFields from './components/TasksView.js';
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
-import TasksList from "./components/TasksList.js"
+import TasksList from "./components/TasksList.js";
+import UpdateTask from "./components/UpdateTask.js"
 
 
 class App extends Component {
 
   constructor(props){
     super(props);
-    this.state ={
-      tasksList:[],
-    };
+    
   }
 
-  componentDidMount() {
-    fetch('http://localhost:8080/taskslist')
-        .then(
-          response => response.json()
-         )
-        .then(data => {
-            
-            let tasksList = [];
-            
-            data.forEach(function (task) {
-                
-                tasksList.push(task)
-
-            });
-            this.setState({tasksList: tasksList});
-        });
-  }
+  
   render() {
     return (
-        <Router>
+        
           <div className="App">
-            <PersistentDrawerLeft/>
-             <Route exact path="/" >
-                <TasksList tasksList={this.state.tasksList}></TasksList>
-             </Route>
-             <Route path="/newtask" component={TextFields}></Route>
-            <SimpleTooltips/>
+            
+            <Router>
+              <PersistentDrawerLeft/>
+              <Route exact path="/" component={TasksList}></Route>
+              <Route path="/newtask" component={TextFields}></Route>
+              <Route path="/updatetask" component={UpdateTask}></Route>
+              <SimpleTooltips/>
+            </Router>
           </div>
-        </Router>
+        
     );
   }
 }
