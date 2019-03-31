@@ -1,14 +1,30 @@
 import React, { memo, Component } from "react";
 import { List, Paper, Grid } from "@material-ui/core";
 import TaskCard from "./TaskCard";
+import { withStyles } from '@material-ui/core/styles';
 
-
+const styles = theme => ({
+    lista: {
+      maxHeight: 'calc(100vh - 112px)',
+      overflow: 'auto'
+  
+    },
+    
+  });
 
 class TasksList extends Component{
     constructor(props){
         super(props);
         this.state ={
-            tasksList:[],
+            tasksList:[{description: 'Hacer lab de COSW', responsible: "Juan Gomez", state:"In Progress", date: "01/03/2019"},
+            {description: 'Hacer lab de COSW', responsible: "Juan Gomez", state:"In Progress", date: "01/03/2019"},
+            {description: 'Hacer lab de COSW', responsible: "Juan Gomez", state:"In Progress", date: "01/03/2019"},
+            {description: 'Hacer lab de COSW', responsible: "Juan Gomez", state:"In Progress", date: "01/03/2019"},
+            {description: 'Hacer lab de COSW', responsible: "Juan Gomez", state:"In Progress", date: "01/03/2019"},
+            {description: 'Hacer lab de COSW', responsible: "Juan Gomez", state:"In Progress", date: "01/03/2019"},
+            {description: 'Hacer lab de COSW', responsible: "Juan Gomez", state:"In Progress", date: "01/03/2019"},
+            {description: 'Hacer lab de COSW', responsible: "Juan Gomez", state:"In Progress", date: "01/03/2019"},
+            {description: 'Hacer lab de COSW', responsible: "Juan Gomez", state:"In Progress", date: "01/03/2019"}],
           };
         
     }
@@ -20,17 +36,19 @@ class TasksList extends Component{
                 )
             .then(data => {
                 
-                let tasksList = [];
+                let tasksList = [{description: 'Hacer lab de COSW', responsible: "Juan Gomez", state:"In Progress", date: "01/03/2019"}];
                 data.forEach(function (task) {
                     tasksList.push(task)
+                    console.log(task);
 
                 });
                 this.setState({tasksList: tasksList});
             });
     }
     render() {
+    const { classes } = this.props;
     return (
-        <>
+        <div className= {classes.lista}>
             <h1>Tasks</h1>
             {this.state.tasksList.map((value,i)=>{
                     return(
@@ -43,10 +61,10 @@ class TasksList extends Component{
                     )
                 })
             }
-        </>
+        </div>
     )}
 }
 
 
 
-export default (TasksList);
+export default withStyles(styles)(TasksList);

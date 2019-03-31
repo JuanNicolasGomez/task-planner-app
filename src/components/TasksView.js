@@ -47,6 +47,7 @@ class TextFields extends React.Component {
           super(props);
 
           this.handleSubmit = this.handleSubmit.bind(this);
+          this.handleInputChange = this.handleInputChange.bind(this);
       }
 
   state = {
@@ -54,13 +55,30 @@ class TextFields extends React.Component {
     age: '',
     multiline: 'Controlled',
     currency: 'ready',
+    file: null,
   };
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
   };
 
+  handleInputChange(e) {
+    this.setState({
+        file: e.target.files[0]
+    });                
+  };
+
   handleSubmit(e){
+        let data = new FormData();
+        data.append('file', this.state.file);
+
+        this.axios.post('files', data)
+            .then(function (response) {
+                console.log("file uploaded!", data);
+        })
+        .catch(function (error) {
+            console.log("failed file upload", error);
+        });
     console.log("handleeeee");
       e.preventDefault();
       var parse = JSON.parse(localStorage.tasks);
@@ -73,7 +91,7 @@ class TextFields extends React.Component {
     const { classes } = this.props;
 
     return (
-      <Paper className={classes.container} >
+      <Paper className={classes.container}>
         <TextField
           id="standard-name"
           label="Name"
@@ -117,17 +135,18 @@ class TextFields extends React.Component {
             shrink: true,
           }}
         />
+        <input type="file" id="file" onChange={this.handleInputChange}/>
 
         <Button type="submit"
         fullWidth
         color="primary"
-        className="submit"> Submit</Button>
+        className="submit" onClick={this.handleSubmit}> Submit</Button>
 
         <Link to="/">
             <Button type="submit"
                     fullWidth
                     color="primary"
-                    className="submit"> Back
+                    className="submit" > Back
             </Button>
         </Link>
 
